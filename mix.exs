@@ -7,7 +7,8 @@ defmodule VisaEx.MixProject do
       version: "0.1.0",
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      aliases: aliases(),
     ]
   end
 
@@ -22,6 +23,15 @@ defmodule VisaEx.MixProject do
   defp deps do
     [
       {:rustler, "~> 0.27.0"}
+    ]
+  end
+
+  defp aliases do
+    [
+      fmt: [
+        "format",
+        "cmd cargo fmt --manifest-path native/visaex/Cargo.toml"
+      ]
     ]
   end
 end
