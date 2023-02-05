@@ -252,7 +252,6 @@ dependencies = [
 [[package]]
 name = "visa-sys"
 version = "0.1.4"
-source = "git+https://github.com/OAsat/visa-sys#1d3833f4c90256bef8a40874e1b6da639724e4ad"
 
 [[package]]
 name = "visa_ex_nif"
