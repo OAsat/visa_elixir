@@ -1,10 +1,9 @@
 # VisaEx
 
-The library provides some simple Elixir functions to communicate with lab instruments via VISA.
+This library provides a small set of simple Elixir functions to communicate with lab instruments via VISA.
 
-The implementation depends on
-- [visa-rs](https://github.com/TsuITOAR/visa-rs)
-- [rustler](https://github.com/rusterlium/rustler)
+## Requirements
+You need [NI-VISA](https://www.ni.com/en-us/support/downloads/drivers/download.ni-visa.html#460225) (or another visa library) installed in the default location or `LIB_VISA_PATH` (See [visa-rs](https://github.com/TsuITOAR/visa-rs)).
 
 ## Installation
 
@@ -29,6 +28,8 @@ iex(3)> VisaEx.write("GPIB1::8::INSTR", "SOUR:DELT:ARM\n")
 iex(4)> VisaEx.write("GPIB1::8::INSTR", "INIT:IMM\n")
 {}
 iex(5)> VisaEx.query("GPIB1::8::INSTR", "SENS:DATA?\n")
-"+9.9E37,+5.248E+01\n"iex(1)> VisaEx.list_resources()
-["ASRL1::INSTR", "ASRL2::INSTR"]
+"+9.9E37,+5.248E+01\n"
 ```
+
+## Development
+Communication to VISA is implemented using [visa-rs](https://github.com/TsuITOAR/visa-rs).
