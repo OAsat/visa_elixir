@@ -11,4 +11,5 @@ crate-type = ["cdylib"]
 
 [dependencies]
 rustler = "0.27.0"
-visa-rs = { path = "../../../rust/visa-rs" }
+sys = "0.0.0"
+visa-rs = "0.4.0"

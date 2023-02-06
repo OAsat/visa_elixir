@@ -120,9 +120,9 @@ dependencies = [
 
 [[package]]
 name = "proc-macro2"
-version = "1.0.50"
+version = "1.0.51"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6ef7d57beacfaf2d8aee5937dab7b7f28de3cb8b1828479bb5de2a7106f2bae2"
+checksum = "5d727cae5b39d21da60fa540906919ad737832fe0b1c165da3a34d6548c849d6"
 dependencies = [
  "unicode-ident",
 ]
@@ -198,6 +198,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "sys"
+version = "0.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e788d0b8692abbe8b3818a8b132e081438264f285170188cb214a5b790c37ea1"
+
+[[package]]
 name = "toml_datetime"
 version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -231,7 +237,9 @@ dependencies = [
 
 [[package]]
 name = "visa-rs"
-version = "0.5.0"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9548762af773fee3f2a57a8b87868ad62852e27c1245952324958c30acbbaee1"
 dependencies = [
  "bitflags",
  "log",
@@ -243,6 +251,8 @@ dependencies = [
 [[package]]
 name = "visa-rs-proc"
 version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "94484d233404b448eea7dba42803cf61d264844628fc7943e9db74942b2118bc"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -251,13 +261,16 @@ dependencies = [
 
 [[package]]
 name = "visa-sys"
-version = "0.1.4"
+version = "0.1.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fe15ef47edded4aca6bd087f9c3d114b881a9bbe6a5e9b731cb50f9bce0341f1"
 
 [[package]]
 name = "visa_ex_nif"
 version = "0.1.0"
 dependencies = [
  "rustler",
+ "sys",
  "visa-rs",
 ]
 
