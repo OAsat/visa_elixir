@@ -267,7 +267,7 @@ checksum = "fe15ef47edded4aca6bd087f9c3d114b881a9bbe6a5e9b731cb50f9bce0341f1"
 
 [[package]]
 name = "visa_ex_nif"
-version = "0.1.0"
+version = "0.0.1"
 dependencies = [
  "rustler",
  "sys",

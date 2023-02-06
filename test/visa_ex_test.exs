@@ -2,11 +2,7 @@ defmodule VisaExTest do
   use ExUnit.Case
   doctest VisaEx
 
-  test "adds a and b" do
-    assert VisaEx.add(1, 2) == 3
-  end
-
   test "list_instr runs" do
-    VisaEx.list_instr()
+    VisaEx.list_resources()
   end
 end
