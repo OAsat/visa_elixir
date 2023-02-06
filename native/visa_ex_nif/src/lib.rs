@@ -7,10 +7,10 @@ fn convert_visa_error(error: visa_rs::Error) -> Error {
 }
 
 #[rustler::nif]
-fn list_resources() -> NifResult<Vec<String>> {
+fn list_resources(query: String) -> NifResult<Vec<String>> {
     let rm = DefaultRM::new().map_err(convert_visa_error)?;
     let mut list = rm
-        .find_res_list(&CString::new("?*INSTR").unwrap().into())
+        .find_res_list(&CString::new(query).unwrap().into())
         .map_err(convert_visa_error)?;
     let mut vias_vec = Vec::new();
     while let Some(n) = list.find_next().map_err(convert_visa_error)? {
@@ -19,4 +19,4 @@ fn list_resources() -> NifResult<Vec<String>> {
     Ok(vias_vec)
 }
 
-rustler::init!("Elixir.VisaEx", [list_resources]);
+rustler::init!("Elixir.VisaEx.Native", [list_resources]);

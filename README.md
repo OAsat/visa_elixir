@@ -19,4 +19,7 @@ end
 ```
 
 ## Examples
-
+```
+iex(1)> VisaEx.list_resources()
+["ASRL1::INSTR", "ASRL2::INSTR"]
+```
