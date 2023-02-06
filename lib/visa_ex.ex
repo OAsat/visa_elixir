@@ -3,7 +3,7 @@ defmodule VisaEx do
     use Rustler, otp_app: :visa_ex, crate: "visa_ex_nif"
 
     def list_resources(_message), do: :erlang.nif_error(:nif_not_loaded)
-
+    def write(_address, _message), do: :erlang.nif_error(:nif_not_loaded)
     def query(_address, _message), do: :erlang.nif_error(:nif_not_loaded)
   end
 
@@ -11,6 +11,11 @@ defmodule VisaEx do
     Native.list_resources(message)
   end
 
+  def write(address, message) do
+    Native.write(address, message)
+  end
+
+  @spec query(String.t(), String.t()) :: String.t()
   def query(address, message) do
     Native.query(address, message)
   end

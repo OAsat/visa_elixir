@@ -33,9 +33,20 @@ fn list_resources(message: String) -> NifResult<Vec<String>> {
 }
 
 #[rustler::nif]
-fn query(visa_address: String, message: String) -> NifResult<String> {
+fn write(address: String, message: String) -> NifResult<()> {
     let rm = get_resource_manager()?;
-    let resource = &CString::new(visa_address).map_err(convert_cstring_error)?.into();
+    let resource = &CString::new(address).map_err(convert_cstring_error)?.into();
+    let mut instr = rm
+        .open(resource, AccessMode::NO_LOCK, TIMEOUT_IMMEDIATE)
+        .map_err(convert_visa_error)?;
+    instr.write_all(message.as_bytes()).map_err(convert_io_error)?;
+    Ok(())
+}
+
+#[rustler::nif]
+fn query(address: String, message: String) -> NifResult<String> {
+    let rm = get_resource_manager()?;
+    let resource = &CString::new(address).map_err(convert_cstring_error)?.into();
     let mut instr = rm
         .open(resource, AccessMode::NO_LOCK, TIMEOUT_IMMEDIATE)
         .map_err(convert_visa_error)?;
@@ -46,4 +57,4 @@ fn query(visa_address: String, message: String) -> NifResult<String> {
     Ok(buf)
 }
 
-rustler::init!("Elixir.VisaEx.Native", [list_resources, query]);
+rustler::init!("Elixir.VisaEx.Native", [list_resources, query, write]);
