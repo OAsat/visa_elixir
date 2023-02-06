@@ -7,12 +7,12 @@ You need [NI-VISA](https://www.ni.com/en-us/support/downloads/drivers/download.n
 
 ## Installation
 
-Add `visa_ex` to your list of dependencies in `mix.exs`:
+Add `simple_visa_elixir` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
   [
-    {:visa_ex, git: "https://github.com/OAsat/visa_ex.git"}
+    {:simple_visa_elixir, git: "https://github.com/OAsat/visa_ex.git"}
   ]
 end
 ```

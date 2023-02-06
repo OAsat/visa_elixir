@@ -57,4 +57,4 @@ fn query(address: String, message: String) -> NifResult<String> {
     Ok(buf)
 }
 
-rustler::init!("Elixir.VisaEx.Native", [list_resources, query, write]);
+rustler::init!("Elixir.SimpleVISA.Native", [list_resources, query, write]);
