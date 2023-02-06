@@ -12,7 +12,7 @@ Add `simple_visa_elixir` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:simple_visa_elixir, git: "https://github.com/OAsat/visa_ex.git"}
+    {:simple_visa_elixir, git: "https://github.com/OAsat/simple_visa_elixir.git"}
   ]
 end
 ```
