@@ -3,7 +3,7 @@ defmodule SimpleVISA.MixProject do
 
   def project do
     [
-      app: :simple_visa_elixir,
+      app: :simple_visa,
       version: "0.0.1",
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,

@@ -1,4 +1,4 @@
-# simple_visa_elixir 
+# SimpleVISA
 
 This library provides a small set of Elixir functions to communicate with lab instruments via VISA.
 
@@ -7,12 +7,12 @@ You need [NI-VISA](https://www.ni.com/en-us/support/downloads/drivers/download.n
 
 ## Installation
 
-Add `simple_visa_elixir` to your list of dependencies in `mix.exs`:
+Add `simple_visa` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
   [
-    {:simple_visa_elixir, git: "https://github.com/OAsat/simple_visa_elixir.git"}
+    {:simple_visa, git: "https://github.com/OAsat/simple_visa_elixir.git"}
   ]
 end
 ```
