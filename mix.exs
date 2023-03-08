@@ -1,13 +1,17 @@
 defmodule ExVISA.MixProject do
   use Mix.Project
 
+  @version "0.0.1"
+  @repo "https://github.com/OAsat/visa_elixir"
+
   def project do
     [
       app: :ex_visa,
-      version: "0.0.1",
+      version: @version,
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      package: package(),
     ]
   end
 
@@ -23,5 +27,13 @@ defmodule ExVISA.MixProject do
     [
       {:rustler, "~> 0.27.0"}
     ]
+  end
+
+  defp package do
+    %{
+      licenses: ["Apache-2.0", "MIT"],
+      maintainers: ["Asato Onishi"],
+      links: %{"GitHub" => @repo}
+    }
   end
 end
