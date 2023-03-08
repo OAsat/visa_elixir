@@ -33,6 +33,16 @@ defmodule ExVISA.MixProject do
 
   defp package do
     %{
+      files: [
+      "lib",
+      "native/visa_nif/.cargo",
+      "native/visa_nif/src",
+      "native/visa_nif/Cargo*",
+      "mix.exs",
+      "README.md",
+      "LICENSE-APACHE",
+      "LICENSE-MIT",
+    ],
       licenses: ["Apache-2.0", "MIT"],
       maintainers: ["Asato Onishi"],
       links: %{"GitHub" => @repo}
