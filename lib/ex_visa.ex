@@ -1,6 +1,6 @@
-defmodule SimpleVISA do
+defmodule ExVISA do
   defmodule Native do
-    use Rustler, otp_app: :simple_visa, crate: "visa_nif"
+    use Rustler, otp_app: :ex_visa, crate: "visa_nif"
 
     def list_resources(_message), do: :erlang.nif_error(:nif_not_loaded)
     def write(_address, _message), do: :erlang.nif_error(:nif_not_loaded)

@@ -1,4 +1,4 @@
-# SimpleVISA
+# ExVISA
 
 This library provides a small set of Elixir functions to communicate with lab instruments via VISA.
 
@@ -12,22 +12,22 @@ Add `simple_visa` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:simple_visa, git: "https://github.com/OAsat/simple_visa_elixir.git"}
+    {:ex_visa, git: "https://github.com/OAsat/simple_visa_elixir.git"}
   ]
 end
 ```
 
 ## Usage
 ```
-iex(1)> SimpleVISA.list_resources()
+iex(1)> ExVISA.list_resources()
 ["ASRL1::INSTR", "ASRL3::INSTR", "GPIB0::27::INSTR", "GPIB1::8::INSTR"]
-iex(2)> SimpleVISA.idn("GPIB1::8::INSTR")
+iex(2)> ExVISA.idn("GPIB1::8::INSTR")
 "KEITHLEY INSTRUMENTS INC.,MODEL 6221,4559777,D04  /700x \n"
-iex(3)> SimpleVISA.write("GPIB1::8::INSTR", "SOUR:DELT:ARM\n")
+iex(3)> ExVISA.write("GPIB1::8::INSTR", "SOUR:DELT:ARM\n")
 {}
-iex(4)> SimpleVISA.write("GPIB1::8::INSTR", "INIT:IMM\n")
+iex(4)> ExVISA.write("GPIB1::8::INSTR", "INIT:IMM\n")
 {}
-iex(5)> SimpleVISA.query("GPIB1::8::INSTR", "SENS:DATA?\n")
+iex(5)> ExVISA.query("GPIB1::8::INSTR", "SENS:DATA?\n")
 "+9.9E37,+5.248E+01\n"
 ```
 

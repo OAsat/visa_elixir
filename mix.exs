@@ -1,9 +1,9 @@
-defmodule SimpleVISA.MixProject do
+defmodule ExVISA.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :simple_visa,
+      app: :ex_visa,
       version: "0.0.1",
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
