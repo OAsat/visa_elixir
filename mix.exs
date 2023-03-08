@@ -9,6 +9,7 @@ defmodule ExVISA.MixProject do
       app: :ex_visa,
       version: @version,
       elixir: "~> 1.14",
+      description: "Use VISA(Virtual Instrument Software Architecture) in Elixir",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       package: package(),
@@ -25,7 +26,8 @@ defmodule ExVISA.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:rustler, "~> 0.27.0"}
+      {:rustler, "~> 0.27.0"},
+      {:ex_doc, "~> 0.27", only: :dev, runtime: false},
     ]
   end
 
