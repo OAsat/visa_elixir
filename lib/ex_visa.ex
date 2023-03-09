@@ -1,6 +1,15 @@
 defmodule ExVISA do
   defmodule Native do
-    use Rustler, otp_app: :ex_visa, crate: "visa_nif"
+    version = Mix.Project.config()[:version]
+
+    use RustlerPrecompiled,
+    otp_app: :ex_visa,
+    crate: "visa_nif",
+    base_url: "https://https://github.com/OAsat/visa_elixir/releases/download/v#{version}",
+    force_build: System.get_env("RUSTLER_PRECOMPILATION_EXAMPLE_BUILD") in ["1", "true"],
+    targets:
+      Enum.uniq(["aarch64-unknown-linux-musl" | RustlerPrecompiled.Config.default_targets()]),
+    version: version
 
     def list_resources(_message), do: :erlang.nif_error(:nif_not_loaded)
     def write(_address, _message), do: :erlang.nif_error(:nif_not_loaded)

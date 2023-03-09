@@ -1,7 +1,7 @@
 defmodule ExVISA.MixProject do
   use Mix.Project
 
-  @version "0.0.1"
+  @version "0.0.2"
   @repo "https://github.com/OAsat/visa_elixir"
 
   def project do
@@ -26,7 +26,8 @@ defmodule ExVISA.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:rustler, "~> 0.27.0"},
+      {:rustler_precompiled, "~> 0.6"},
+      {:rustler, ">= 0.0.0", optional: true},
       {:ex_doc, "~> 0.27", only: :dev, runtime: false},
     ]
   end
