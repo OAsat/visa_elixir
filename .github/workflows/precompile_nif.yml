@@ -14,8 +14,8 @@ jobs:
       matrix:
         nif: ["2.16", "2.15"]
         job:
-          - { target: x86_64, os: macos }
-          - { target: x86_64, os: windows-2019 }
+          - { target: x86_64-apple-darwin         , os: macos-11      }
+          - { target: x86_64-pc-windows-msvc      , os: windows-2019  }
 
     steps:
       - name: Checkout source code
