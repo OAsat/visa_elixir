@@ -27,3 +27,5 @@ ex_visa-*.tar
 
 # DS_Store
 .DS_Store
+
+/priv/native/
