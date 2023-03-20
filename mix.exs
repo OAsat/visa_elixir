@@ -19,7 +19,8 @@ defmodule ExVISA.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger]
+      extra_applications: [:logger],
+      mod: {ExVisa.Application, []}
     ]
   end
 
@@ -28,6 +29,7 @@ defmodule ExVISA.MixProject do
     [
       {:rustler, "~> 0.27.0"},
       {:ex_doc, "~> 0.27", only: :dev, runtime: false},
+      {:mox, "~> 1.0", only: :test}
     ]
   end
 
