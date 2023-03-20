@@ -12,7 +12,8 @@ defmodule ExVISA.MixProject do
       description: "Use VISA(Virtual Instrument Software Architecture) in Elixir",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      package: package(),
+      docs: docs(),
+      package: package()
     ]
   end
 
@@ -33,18 +34,26 @@ defmodule ExVISA.MixProject do
     ]
   end
 
+  defp docs do
+    [
+      main: "ExVisa",
+      source_ref: "v#{@version}",
+      source_url: "https://github.com/OAsat/visa_elixir"
+    ]
+  end
+
   defp package do
     %{
       files: [
-      "lib",
-      "native/visa_nif/.cargo",
-      "native/visa_nif/src",
-      "native/visa_nif/Cargo*",
-      "mix.exs",
-      "README.md",
-      "LICENSE-APACHE",
-      "LICENSE-MIT",
-    ],
+        "lib",
+        "native/visa_nif/.cargo",
+        "native/visa_nif/src",
+        "native/visa_nif/Cargo*",
+        "mix.exs",
+        "README.md",
+        "LICENSE-APACHE",
+        "LICENSE-MIT"
+      ],
       licenses: ["Apache-2.0", "MIT"],
       maintainers: ["Asato Onishi"],
       links: %{"GitHub" => @repo}

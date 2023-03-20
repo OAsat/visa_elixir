@@ -1,4 +1,6 @@
 defmodule ExVisa.ListenerSupervisor do
+  @moduledoc false
+
   use DynamicSupervisor
 
   @me __MODULE__
