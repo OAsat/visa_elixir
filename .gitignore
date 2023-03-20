@@ -28,4 +28,8 @@ ex_visa-*.tar
 # DS_Store
 .DS_Store
 
+# NIFs
 /priv/native/
+
+# VSCode
+.vscode
