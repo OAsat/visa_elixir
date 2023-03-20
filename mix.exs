@@ -1,7 +1,7 @@
 defmodule ExVISA.MixProject do
   use Mix.Project
 
-  @version "0.0.2"
+  @version "0.1.0"
   @repo "https://github.com/OAsat/visa_elixir"
 
   def project do
