@@ -1,6 +1,6 @@
 defmodule ExVisa.Direct do
   @moduledoc """
-  Simply directs to the `ExVisa.Native` functions.
+  Simply directs to Rustler functions.
 
   You can mock these functions by using the `Mox` package.
   """
