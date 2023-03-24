@@ -7,25 +7,32 @@ defmodule ExVisa.Listener do
   @registry ExVisa.ListenerRegistry
   @me __MODULE__
 
-  @spec start_link(String.t()) :: :ignore | {:error, any} | {:ok, pid}
-  def start_link(port_name) do
+  def registry, do: @registry
+
+  def start_link({port_name, address_list}) do
     name = {:via, Registry, {@registry, port_name}}
-    GenServer.start_link(@me, port_name, name: name)
+    GenServer.start_link(@me, address_list, name: name)
   end
 
   @impl GenServer
-  @spec init(String.t()) :: {:ok, String.t()}
-  def init(port_name) do
-    {:ok, port_name}
+  def init(address_list) when is_list(address_list) do
+    list =
+      for address <- address_list do
+        Registry.register(@registry, address, address)
+      end
+
+    {:ok, list}
   end
 
   @impl GenServer
-  def handle_call({:query, {address, message}}, _from, state) do
-    {:reply, ExVisa.Direct.query(address, message), state}
+  def handle_cast({:query, {address, message}}, state) do
+    ExVisa.Direct.query(address, message)
+    {:noreply, state}
   end
 
   @impl GenServer
-  def handle_call({:write, {address, message}}, _from, state) do
-    {:reply, ExVisa.Direct.write(address, message), state}
+  def handle_cast({:write, {address, message}}, state) do
+    ExVisa.Direct.write(address, message)
+    {:noreply, state}
   end
 end

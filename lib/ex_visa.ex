@@ -9,6 +9,18 @@ defmodule ExVisa do
   If you don't need such functionality,
   you can also directly talk to them through `ExVisa.Direct` functions.
   """
+  alias ExVisa.Listener
+  alias ExVisa.Parser
+  @listener_registry ExVisa.ListenerRegistry
+  @listener_supervisor ExVisa.ListenerSupervisor
+
+  def start() do
+    list_resources()
+    |> Enum.group_by(&Parser.port_from_address(&1))
+    |> Enum.map(fn v = {_port, _address_list} ->
+      DynamicSupervisor.start_child(@listener_supervisor, {ExVisa.Listener, v})
+    end)
+  end
 
   @doc """
   Currently, just an alias to `ExVisa.Direct.list_resources/1`.
@@ -18,12 +30,32 @@ defmodule ExVisa do
   @doc """
   Writes the message to the given VISA address.
   """
-  def write(address, message), do: ExVisa.ListenerManager.write({address, message})
+  def write(address, message) do
+    Registry.dispatch(
+      Listener.registry(),
+      address,
+      fn {pid, address} -> GenServer.call(pid, {:write, {address, message}}) end
+    )
+  end
 
   @doc """
   Queries the message to the given VISA address.
   """
-  def query(address, message), do: ExVisa.ListenerManager.query({address, message})
+  def query(address, message) do
+    # [{pid, _}] = Registry.lookup(Listener.registry(), address)
+    # GenServer.call(pid, {:query, {address, message}})
+    caller = self()
+    Registry.dispatch(
+      Listener.registry(),
+      address,
+      # fn {pid, address} -> GenServer.call(pid, {:write, {address, message}}) end
+      fn {pid, address} -> GenServer.cast(pid, {:query, caller, {address, message}}) end
+    )
+
+    receive do
+      {:query, value} -> value
+    end
+  end
 
   @doc """
   Queries device identifier.
