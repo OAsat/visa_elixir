@@ -18,7 +18,7 @@ defmodule ExVisa do
     list_resources()
     |> Enum.group_by(&Parser.port_from_address(&1))
     |> Enum.map(fn v = {_port, _address_list} ->
-      DynamicSupervisor.start_child(@listener_supervisor, {ExVisa.Listener, v})
+      {:ok, _child} = DynamicSupervisor.start_child(@listener_supervisor, {ExVisa.Listener, v})
     end)
   end
 
@@ -42,19 +42,11 @@ defmodule ExVisa do
   Queries the message to the given VISA address.
   """
   def query(address, message) do
-    # [{pid, _}] = Registry.lookup(Listener.registry(), address)
-    # GenServer.call(pid, {:query, {address, message}})
-    caller = self()
     Registry.dispatch(
       Listener.registry(),
       address,
-      # fn {pid, address} -> GenServer.call(pid, {:write, {address, message}}) end
-      fn {pid, address} -> GenServer.cast(pid, {:query, caller, {address, message}}) end
+      fn {pid, address} -> GenServer.cast(pid, {:query, {address, message}}) end
     )
-
-    receive do
-      {:query, value} -> value
-    end
   end
 
   @doc """

@@ -1,5 +1,6 @@
 defmodule ExVisaTest do
-  use ExUnit.Case
+  alias ExVisa.Listener
+  use ExUnit.Case, async: false
   import Mox
 
   setup :set_mox_from_context
@@ -14,6 +15,9 @@ defmodule ExVisaTest do
       fn _message -> ["GPIB0::1::INSTR", "GPIB0::2::INSTR", "GPIB1::1::INSTR"] end
     )
     ExVisa.start()
+
+    [{pid1, _value}] = Registry.lookup(Listener.registry(), "GPIB0")
+    assert Registry.keys(Listener.registry(), pid1) |> Enum.sort() == ["GPIB0", "GPIB0::1::INSTR", "GPIB0::2::INSTR"]
   end
 
   test "query" do

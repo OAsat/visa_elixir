@@ -18,7 +18,7 @@ defmodule ExVisa.Listener do
   def init(address_list) when is_list(address_list) do
     list =
       for address <- address_list do
-        Registry.register(@registry, address, address)
+        {:ok, _pid} = Registry.register(@registry, address, address)
       end
 
     {:ok, list}
