@@ -42,8 +42,8 @@ defmodule ExVisa do
 
     with [] <- Registry.lookup(@listener_registry, address),
          true <- exists?(address),
-         [] <- Registry.lookup(@listener_registry, port_name),
-         {:ok, pid} <- DynamicSupervisor.start_child(@listener_supervisor, {Listener, port_name}) do
+         [] <- Registry.lookup(@listener_registry, port_name) do
+      {:ok, pid} = DynamicSupervisor.start_child(@listener_supervisor, {Listener, port_name})
       GenServer.call(pid, {type, content})
     else
       [{pid, _value}] ->
