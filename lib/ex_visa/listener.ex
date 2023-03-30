@@ -15,7 +15,7 @@ defmodule ExVisa.Listener do
   end
 
   @impl GenServer
-  def init(port_name) when is_list(port_name) do
+  def init(port_name) do
     {:ok, port_name}
   end
 
