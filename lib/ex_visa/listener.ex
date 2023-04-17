@@ -34,4 +34,8 @@ defmodule ExVisa.Listener do
     Registry.register(@registry, address, address)
     {:noreply, state}
   end
+
+  def impl() do
+    Application.get_env(:ex_visa, :listener_impl, ExVisa.Direct)
+  end
 end
