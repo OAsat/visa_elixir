@@ -9,15 +9,16 @@ defmodule ExVisa do
   If you don't need such functionality,
   you can also directly talk to them through `ExVisa.Direct` functions.
   """
-  alias ExVisa.Parser
   alias ExVisa.Listener
-  @listener_registry ExVisa.ListenerRegistry
-  @listener_supervisor ExVisa.ListenerSupervisor
+  alias ExVisa.ListenerRegistry
 
   @doc """
   Currently, just an alias to `ExVisa.Direct.list_resources/1`.
   """
-  def list_resources(message \\ "?*::INSTR"), do: ExVisa.Direct.list_resources(message)
+  def list_resources(message \\ "?*::INSTR") do
+    {:ok, pid} = ListenerRegistry.get_listener_pid(:no_address)
+    Listener.list_resources(pid, message)
+  end
 
   def exists?(address) do
     [address] == list_resources(address)
@@ -27,32 +28,16 @@ defmodule ExVisa do
   Writes the message to the given VISA address.
   """
   def write(address, message) do
-    communicate(:write, {address, message})
+    {:ok, pid} = ListenerRegistry.get_listener_pid(address)
+    Listener.write(pid, {address, message})
   end
 
   @doc """
   Queries the message to the given VISA address.
   """
   def query(address, message) do
-    communicate(:query, {address, message})
-  end
-
-  defp communicate(type, content = {address, _message}) when is_atom(type) do
-    port_name = Parser.port_from_address(address)
-
-    with [] <- Registry.lookup(@listener_registry, address),
-         true <- exists?(address),
-         [] <- Registry.lookup(@listener_registry, port_name) do
-      {:ok, pid} = DynamicSupervisor.start_child(@listener_supervisor, {Listener, port_name})
-      GenServer.call(pid, {type, content})
-    else
-      [{pid, _value}] ->
-        GenServer.cast(pid, {:register, address})
-        GenServer.call(pid, {type, content})
-
-      false ->
-        {:error, :invalid_address}
-    end
+    {:ok, pid} = ListenerRegistry.get_listener_pid(address)
+    Listener.query(pid, {address, message})
   end
 
   @doc """

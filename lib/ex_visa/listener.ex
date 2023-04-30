@@ -14,19 +14,40 @@ defmodule ExVisa.Listener do
     GenServer.start_link(@me, port_name, name: name)
   end
 
-  @impl GenServer
-  def init(port_name) do
-    {:ok, port_name}
+  def register_address(pid, address) do
+    GenServer.cast(pid, {:register, address})
+  end
+
+  def query(pid, content) do
+    GenServer.call(pid, {:query, content})
+  end
+
+  def write(pid, content) do
+    GenServer.call(pid, {:write, content})
+  end
+
+  def list_resources(pid, content) do
+    GenServer.call(pid, {:list_resources, content})
   end
 
   @impl GenServer
-  def handle_call({:query, {address, message}}, _from, state) do
-    {:reply, ExVisa.Direct.query(address, message), state}
+  def init(state) do
+    {:ok, state}
   end
 
   @impl GenServer
-  def handle_call({:write, {address, message}}, _from, state) do
-    {:reply, ExVisa.Direct.write(address, message), state}
+  def handle_call({:query, content}, _from, state) do
+    {:reply, listener_impl().query(content, state), state}
+  end
+
+  @impl GenServer
+  def handle_call({:write, content}, _from, state) do
+    {:reply, listener_impl().write(content, state), state}
+  end
+
+  @impl GenServer
+  def handle_call({:list_resources, content}, _from, state) do
+    {:reply, listener_impl().list_resources(content, state), state}
   end
 
   @impl GenServer
@@ -35,7 +56,7 @@ defmodule ExVisa.Listener do
     {:noreply, state}
   end
 
-  def impl() do
-    Application.get_env(:ex_visa, :listener_impl, ExVisa.Direct)
+  def listener_impl() do
+    Application.get_env(:ex_visa, :listener_impl, ExVisa.RustlerVisa)
   end
 end
