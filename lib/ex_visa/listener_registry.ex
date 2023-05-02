@@ -1,5 +1,4 @@
 defmodule ExVisa.ListenerRegistry do
-
   @me __MODULE__
 
   def lookup(key) do
@@ -17,10 +16,12 @@ defmodule ExVisa.ListenerRegistry do
   end
 
   def start_or_get_pid(address) do
-    port_name = case address do
-      :no_address -> :no_address
-      _ -> ExVisa.Parser.port_from_address(address)
-    end
+    port_name =
+      case address do
+        :no_address -> :no_address
+        _ -> ExVisa.Parser.port_from_address(address)
+      end
+
     case ExVisa.ListenerSupervisor.start_child(port_name) do
       {:ok, pid} -> {:ok, pid}
       {:error, {:already_started, pid}} -> {:ok, pid}

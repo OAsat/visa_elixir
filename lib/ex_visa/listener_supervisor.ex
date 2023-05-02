@@ -1,5 +1,4 @@
 defmodule ExVisa.ListenerSupervisor do
-
   alias ExVisa.Listener
 
   @me __MODULE__

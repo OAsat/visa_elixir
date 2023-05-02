@@ -1,8 +1,8 @@
 import pyvisa
 
 
-def list_resources():
-    return pyvisa.ResourceManager().list_resources()
+def list_resources(query):
+    return pyvisa.ResourceManager().list_resources(query)
 
 
 def query(address, message):

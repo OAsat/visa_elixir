@@ -1,5 +1,6 @@
 defmodule ExVisaTest do
-  use ExUnit.Case, async: false
+  # TODO:: appropriate use of Mox
+  use ExUnit.Case
   import Mox
 
   setup :set_mox_from_context
@@ -11,6 +12,7 @@ defmodule ExVisaTest do
     dummies = ["DUMMY::INSTR1", "DUMMY::INSTR2"]
 
     ExVisa.VisaMock
+    |> stub(:init_state, fn state -> state end)
     |> expect(:list_resources, fn "?*::INSTR", :no_address -> dummies end)
 
     assert ExVisa.list_resources() == dummies
@@ -21,6 +23,7 @@ defmodule ExVisaTest do
     dummy2 = "DUMMY::INSTR2"
 
     ExVisa.VisaMock
+    |> stub(:init_state, fn state -> state end)
     |> expect(:list_resources, fn ^dummy1, :no_address -> [dummy1] end)
     |> expect(:list_resources, fn ^dummy2, :no_address -> [dummy2] end)
 
@@ -32,7 +35,9 @@ defmodule ExVisaTest do
     address = "DUMMY::INSTR"
     port = ExVisa.Parser.port_from_address(address)
     message = "dummy\n"
+
     ExVisa.VisaMock
+    |> stub(:init_state, fn state -> state end)
     |> expect(:query, fn {^address, ^message}, ^port -> :dummy_answer end)
 
     assert ExVisa.query(address, message) == :dummy_answer
@@ -41,7 +46,9 @@ defmodule ExVisaTest do
   test "idn" do
     address = "DUMMY::INSTR"
     port = ExVisa.Parser.port_from_address(address)
+
     ExVisa.VisaMock
+    |> stub(:init_state, fn state -> state end)
     |> expect(:query, fn {^address, "*IDN?\n"}, ^port -> :dummy_answer end)
 
     assert ExVisa.idn(address) == :dummy_answer
@@ -51,7 +58,9 @@ defmodule ExVisaTest do
     address = "DUMMY::INSTR"
     port = ExVisa.Parser.port_from_address(address)
     message = "dummy\n"
+
     ExVisa.VisaMock
+    |> stub(:init_state, fn state -> state end)
     |> expect(:write, fn {^address, ^message}, ^port -> :ok end)
 
     assert ExVisa.write(address, message) == :ok

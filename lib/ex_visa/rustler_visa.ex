@@ -4,7 +4,7 @@ defmodule ExVisa.RustlerVisa do
 
   @impl ExVisa.VisaBehaviour
   def init_state(port_name) do
-    {:ok, port_name}
+    port_name
   end
 
   @impl ExVisa.VisaBehaviour

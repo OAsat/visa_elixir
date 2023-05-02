@@ -32,7 +32,7 @@ defmodule ExVisa.Listener do
 
   @impl GenServer
   def init(state) do
-    {:ok, state}
+    {:ok, listener_impl().init_state(state)}
   end
 
   @impl GenServer
@@ -57,6 +57,6 @@ defmodule ExVisa.Listener do
   end
 
   def listener_impl() do
-    Application.get_env(:ex_visa, :listener_impl, ExVisa.RustlerVisa)
+    Application.get_env(:ex_visa, :listener_impl, ExVisa.PythonVisa)
   end
 end
