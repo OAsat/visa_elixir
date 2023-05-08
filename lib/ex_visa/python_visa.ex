@@ -2,8 +2,17 @@ defmodule ExVisa.PythonVisa do
   @behaviour ExVisa.VisaBehaviour
 
   python_src = "./python"
-  System.cmd("poetry", ["install"], cd: python_src, into: IO.stream())
-  {python_exec, 0} = System.cmd("poetry", ["run", "which", "python"], cd: python_src)
+
+  {python_exec, 0} =
+    case :os.type() do
+      {:win32, _} ->
+        System.cmd("cmd.exe", ["/c", "poetry", "install"], cd: python_src, into: IO.stream())
+        System.cmd("cmd.exe", ["/c", "poetry", "run", "which", "python"], cd: python_src)
+
+      {:unix, _} ->
+        System.cmd("poetry", ["install"], cd: python_src, into: IO.stream())
+        System.cmd("poetry", ["run", "which", "python"], cd: python_src)
+    end
 
   @python_path to_charlist(python_src)
   @python_exec to_charlist(String.trim(python_exec))
