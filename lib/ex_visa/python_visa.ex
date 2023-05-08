@@ -7,7 +7,7 @@ defmodule ExVisa.PythonVisa do
     case :os.type() do
       {:win32, _} ->
         System.cmd("cmd.exe", ["/c", "poetry", "install"], cd: python_src, into: IO.stream())
-        System.cmd("cmd.exe", ["/c", "poetry", "run", "which", "python"], cd: python_src)
+        System.cmd("cmd.exe", ["/c", "poetry", "run", "where.exe", "python"], cd: python_src)
 
       {:unix, _} ->
         System.cmd("poetry", ["install"], cd: python_src, into: IO.stream())
