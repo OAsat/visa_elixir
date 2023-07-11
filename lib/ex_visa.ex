@@ -27,21 +27,21 @@ defmodule ExVisa do
   @doc """
   Writes the message to the given VISA address.
   """
-  def write(address, message) do
+  def write(address, message, read_term \\ "\n", write_term \\ "\n") do
     {:ok, pid} = ListenerRegistry.get_listener_pid(address)
-    Listener.write(pid, {address, message})
+    Listener.write(pid, {address, message, read_term, write_term})
   end
 
   @doc """
   Queries the message to the given VISA address.
   """
-  def query(address, message) do
+  def query(address, message, read_term \\ "\n", write_term \\ "\n") do
     {:ok, pid} = ListenerRegistry.get_listener_pid(address)
-    Listener.query(pid, {address, message})
+    Listener.query(pid, {address, message, read_term, write_term})
   end
 
   @doc """
   Queries device identifier.
   """
-  def idn(address), do: query(address, "*IDN?\n")
+  def idn(address), do: query(address, "*IDN?")
 end

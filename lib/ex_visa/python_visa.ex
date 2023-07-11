@@ -45,12 +45,12 @@ defmodule ExVisa.PythonVisa do
   end
 
   @impl ExVisa.VisaBehaviour
-  def query({address, message}, pid) do
-    :python.call(pid, :"pyvisa_ex.communicate", :query, [address, message])
+  def query({address, message, read_term, write_term}, pid) do
+    :python.call(pid, :"pyvisa_ex.communicate", :query, [address, message, read_term, write_term])
   end
 
   @impl ExVisa.VisaBehaviour
-  def write({address, message}, pid) do
-    :python.call(pid, :"pyvisa_ex.communicate", :write, [address, message])
+  def write({address, message, read_term, write_term}, pid) do
+    :python.call(pid, :"pyvisa_ex.communicate", :write, [address, message, read_term, write_term])
   end
 end
