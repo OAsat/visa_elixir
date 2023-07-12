@@ -1,7 +1,7 @@
 defmodule ExVisa.MixProject do
   use Mix.Project
 
-  @version "0.1.2"
+  @version "0.2.0"
   @repo "https://github.com/OAsat/visa_elixir"
 
   def project do
@@ -28,7 +28,8 @@ defmodule ExVisa.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:rustler, "~> 0.27.0"},
+      {:erlport, "~> 0.10.1"},
+      {:rustler, "~> 0.27.0", optional: true},
       {:ex_doc, "~> 0.27", only: :dev, runtime: false},
       {:mox, "~> 1.0", only: :test}
     ]
@@ -49,6 +50,10 @@ defmodule ExVisa.MixProject do
         "native/visa_nif/.cargo",
         "native/visa_nif/src",
         "native/visa_nif/Cargo*",
+        "python/pyvisa_ex/**/*.py",
+        "python/poetry.toml",
+        "python/poetry.lock",
+        "python/pyproject.toml",
         "mix.exs",
         "README.md",
         "LICENSE-APACHE",

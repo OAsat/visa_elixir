@@ -1,0 +1,13 @@
+[tool.poetry]
+name = "pyvisa_ex"
+version = "0.1.0"
+description = ""
+authors = ["Asato Onishi"]
+
+[tool.poetry.dependencies]
+python = "^3.9, <3.11"
+pyvisa = "^1.13.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
