@@ -1,7 +1,7 @@
 defmodule ExVisa.PythonVisa do
   @behaviour ExVisa.VisaBehaviour
 
-  python_src = File.cwd!() |> Path.join("python")
+  python_src = File.cwd!() |> Path.join("python") |> to_string()
 
   python_exec =
     case :os.type() do
